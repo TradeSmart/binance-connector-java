@@ -6,22 +6,20 @@
 
     <groupId>io.github.binance</groupId>
     <artifactId>binance-connector-java</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.0-TUNED</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>lightweight connector to API</description>
     <url>https://github.com/binance/binance-connector-java</url>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>tuned-artifacts--forked-third-party-libraries</id>
+            <name>tuned-artifacts--forked-third-party-libraries</name>
+            <url>${env.CODEARTIFACT_REPOSITORY_URL}</url>
         </repository>
     </distributionManagement>
+
 
     <licenses>
         <license>
@@ -30,6 +28,21 @@
         </license>
     </licenses>
 
+
+    <profiles>
+        <profile>
+            <id>tuned-artifacts--forked-third-party-libraries</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <id>tuned-artifacts--forked-third-party-libraries</id>
+                    <url>${env.CODEARTIFACT_REPOSITORY_URL}</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
     <developers>
         <developer>
             <name>Binance</name>
@@ -43,6 +56,7 @@
         <url>https://github.com/binance/binance-connector-java</url>
     </scm>
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -62,16 +76,6 @@
                     <failsOnError>true</failsOnError>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 </configuration>
-                <executions>
-                    <execution>
-                        <?m2e execute onConfiguration,onIncremental?>
-                        <id>validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>checkstyle</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
