@@ -7,4 +7,4 @@ phases:
   build:
     commands:
       - export CODEARTIFACT_AUTH_TOKEN=`/usr/local/bin/aws codeartifact get-authorization-token --domain "${CODEARTIFACT_DOMAIN}" --domain-owner "${AWS_ACCOUNT_ID}" --query authorizationToken --output text`
-      - mvn package '-Dgpg.skip=true' '-Dmaven.javadoc.skip=true' '-DskipTests=true' deploy -e
+      - mvn -s settings.xml package '-Dgpg.skip=true' '-Dmaven.javadoc.skip=true' '-DskipTests=true' deploy -e
